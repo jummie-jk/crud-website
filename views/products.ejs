@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+</head>
+<body>
+    <h1>Products</h1>
+    <form action="/products/create" method="POST">
+        <input type="text" name="name" placeholder="Product Name" required>
+        <input type="number" name="price" placeholder="Product Price" required>
+        <textarea name="description" placeholder="Product Description" required></textarea>
+        <button type="submit">Add Product</button>
+    </form>
+    <ul>
+        <% products.forEach(product => { %>
+            <li>
+                <h2><%= product.name %></h2>
+                <p>Price: $<%= product.price %></p>
+                <p><%= product.description %></p>
+                <form action="/cart/add" method="POST">
+                    <input type="hidden" name="productId" value="<%= product._id %>">
+                    <button type="submit">Add to Cart</button>
+                </form>
+                <a href="/products/edit/<%= product._id %>">Edit</a>
+                <form action="/products/delete/<%= product._id %>" method="POST" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>
+
